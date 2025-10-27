@@ -4,17 +4,19 @@
 
 # Create docker-compose.yml for node
 create_node_docker_compose() {
+    local certificate="$1"
     mkdir -p $REMNANODE_DIR && cd $REMNANODE_DIR
     cat >docker-compose.yml <<EOL
 services:
   remnanode:
     container_name: remnanode
     hostname: remnanode
-    image: remnawave/node:$REMNAWAVE_NODE_TAG
-    env_file:
-      - .env
+    image: remnawave/node:latest
     network_mode: host
     restart: always
+    environment:
+      - NODE_PORT=$NODE_PORT
+      - SECRET_KEY="$certificate"
 EOL
 }
 
@@ -73,13 +75,6 @@ collect_node_ssl_certificate() {
     done
 }
 
-# Create .env file for node
-create_node_env_file() {
-    echo -e "### APP ###" >.env
-    echo -e "APP_PORT=$NODE_PORT" >>.env
-    echo -e "$CERTIFICATE" >>.env
-}
-
 # Start node container and show results
 start_node_and_show_results() {
     if ! start_container "$REMNANODE_DIR" "Remnawave Node"; then
@@ -117,10 +112,6 @@ setup_node() {
         return 1
     fi
 
-    create_node_docker_compose
-
-    create_makefile "$REMNANODE_DIR"
-
     collect_node_selfsteal_domain
 
     collect_panel_ip
@@ -131,7 +122,9 @@ setup_node() {
 
     collect_node_ssl_certificate
 
-    create_node_env_file
+    create_node_docker_compose "$CERTIFICATE"
+
+    create_makefile "$REMNANODE_DIR"
 
     setup_selfsteal
 

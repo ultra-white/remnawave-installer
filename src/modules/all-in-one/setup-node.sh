@@ -13,29 +13,26 @@ setup_node_all_in_one() {
 
   cd "$LOCAL_REMNANODE_DIR"
 
-  cat >docker-compose.yml <<EOL
-services:
-  remnanode:
-    container_name: remnanode
-    hostname: remnanode
-    image: remnawave/node:$REMNAWAVE_NODE_TAG
-    env_file:
-      - .env
-    network_mode: host
-    restart: always
-EOL
-
-  create_makefile "$LOCAL_REMNANODE_DIR"
-
   local pubkey=$(get_public_key "$panel_url" "$token" "$PANEL_DOMAIN")
 
   if [ -z "$pubkey" ]; then
     return 1
   fi
 
-  local CERTIFICATE="SSL_CERT=\"$pubkey\""
+  cat >docker-compose.yml <<EOL
+services:
+  remnanode:
+    container_name: remnanode
+    hostname: remnanode
+    image: remnawave/node:latest
+    network_mode: host
+    restart: always
+    environment:
+      - NODE_PORT=$NODE_PORT
+      - SECRET_KEY="$pubkey"
+EOL
 
-  echo -e "### APP ###\nAPP_PORT=$NODE_PORT\n$CERTIFICATE" >.env
+  create_makefile "$LOCAL_REMNANODE_DIR"
 }
 
 setup_and_start_all_in_one_node() {
