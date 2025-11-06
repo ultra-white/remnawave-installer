@@ -2961,6 +2961,8 @@ validate_ssl_certificate() {
         return 1
     fi
 
+    local cert_value="${certificate}"
+
     cert_value="${cert_value#\"}"
     cert_value="${cert_value%\"}"
 

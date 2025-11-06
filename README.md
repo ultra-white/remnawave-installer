@@ -134,7 +134,7 @@ The script installs Remnawave, so these requirements apply to Remnawave componen
 1.  **Download and run the script with one command as root**:
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/dist/install_remnawave.sh)" @ --lang=en
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/install.sh)" @ --lang=en
 ```
 
 2.  **Follow the on-screen instructions**: The script will guide you through all installation and configuration steps.
@@ -146,25 +146,25 @@ The script supports additional parameters to control which versions of component
 **Use development version of Remnawave:**
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/dist/install_remnawave.sh)" @ --lang=en --panel-branch=dev
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/install.sh)" @ --lang=en --panel-branch=dev
 ```
 
 **Use specific version of Remnawave (e.g., 1.65):**
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/dist/install_remnawave.sh)" @ --lang=en --panel-branch=1.65
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/install.sh)" @ --lang=en --panel-branch=1.65
 ```
 
 **Use development script and Remnawave version:**
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/dist/install_remnawave.sh)" @ --lang=en --panel-branch=dev --installer-branch=dev
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/install.sh)" @ --lang=en --panel-branch=dev --installer-branch=dev
 ```
 
 **Reinstall while preserving certificates:**
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/dist/install_remnawave.sh)" @ --lang=en --keep-caddy-data
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/ultra-white/remnawave-installer/refs/heads/main/install.sh)" @ --lang=en --keep-caddy-data
 ```
 
 **Available parameters:**

@@ -125,6 +125,9 @@ validate_ssl_certificate() {
         return 1
     fi
 
+    # Extract the value
+    local cert_value="${certificate}"
+
     # Remove surrounding quotes if present
     cert_value="${cert_value#\"}"
     cert_value="${cert_value%\"}"
