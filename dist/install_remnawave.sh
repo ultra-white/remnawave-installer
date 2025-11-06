@@ -429,10 +429,10 @@ TRANSLATIONS_EN[node_port_2222_in_use]="Required Node API port 2222 is already i
 TRANSLATIONS_EN[node_separate_port_2222]="For separate node installation, port 2222 must be available."
 TRANSLATIONS_EN[node_free_port_2222]="Please free up port 2222 and try again."
 TRANSLATIONS_EN[node_cannot_continue_2222]="Installation cannot continue with occupied port 2222"
-TRANSLATIONS_EN[node_enter_ssl_cert]="Enter the server certificate in format SSL_CERT=\"...\" (paste the content and press Enter twice):"
-TRANSLATIONS_EN[node_ssl_cert_valid]="✓ SSL certificate format is valid"
-TRANSLATIONS_EN[node_ssl_cert_invalid]="✗ Invalid SSL certificate format. Please try again."
-TRANSLATIONS_EN[node_ssl_cert_expected]="Expected format: SSL_CERT=\"...eyJub2RlQ2VydFBldW0iOiAi...\""
+TRANSLATIONS_EN[node_enter_ssl_cert]="Enter the server SECRET_KEY (paste the content and press Enter twice):"
+TRANSLATIONS_EN[node_ssl_cert_valid]="✓ SECRET_KEY format is valid"
+TRANSLATIONS_EN[node_ssl_cert_invalid]="✗ Invalid SECRET_KEY format. Please try again."
+TRANSLATIONS_EN[node_ssl_cert_expected]="Expected format: ...eyJub2RlQ2VydFBldW0iOiAi..."
 TRANSLATIONS_EN[node_port_info]="• Node port:"
 TRANSLATIONS_EN[node_directory_info]="• Node directory:"
 
@@ -461,7 +461,7 @@ TRANSLATIONS_EN[operation_completed]="Operation completed."
 TRANSLATIONS_EN[node_enter_selfsteal_domain]="Enter Selfsteal domain, e.g. domain.example.com"
 TRANSLATIONS_EN[node_enter_panel_ip]="Enter the IP address of the panel server (for configuring firewall)"
 TRANSLATIONS_EN[node_allow_connections]="Allow connections from panel server to node port 2222..."
-TRANSLATIONS_EN[node_enter_ssl_cert_prompt]="Enter the server certificate in format SSL_CERT=\"...\" (paste the content and press Enter twice):"
+TRANSLATIONS_EN[node_enter_ssl_cert_prompt]="Enter the server SECRET_KEY (paste the content and press Enter twice):"
 TRANSLATIONS_EN[node_press_enter_return]="Press Enter to return to the main menu..."
 
 TRANSLATIONS_EN[vless_enter_node_host]="Enter the IP address or domain of the node server (if different from Selfsteal domain)"
@@ -875,10 +875,10 @@ TRANSLATIONS_RU[node_port_2222_in_use]="Требуемый порт API ноды
 TRANSLATIONS_RU[node_separate_port_2222]="Для отдельной установки ноды порт 2222 должен быть доступен."
 TRANSLATIONS_RU[node_free_port_2222]="Пожалуйста, освободите порт 2222 и попробуйте снова."
 TRANSLATIONS_RU[node_cannot_continue_2222]="Установка не может продолжиться с занятым портом 2222"
-TRANSLATIONS_RU[node_enter_ssl_cert]="Введите сертификат сервера в формате SSL_CERT=\"...\" (вставьте содержимое и нажмите Enter дважды):"
-TRANSLATIONS_RU[node_ssl_cert_valid]="✓ Формат SSL сертификата корректен"
-TRANSLATIONS_RU[node_ssl_cert_invalid]="✗ Неверный формат SSL сертификата. Попробуйте снова."
-TRANSLATIONS_RU[node_ssl_cert_expected]="Ожидаемый формат: SSL_CERT=\"...eyJub2RlQ2VydFBldW0iOiAi...\""
+TRANSLATIONS_RU[node_enter_ssl_cert]="Введите SECRET_KEY сервера (вставьте содержимое и нажмите Enter дважды):"
+TRANSLATIONS_RU[node_ssl_cert_valid]="✓ Формат SECRET_KEY корректен"
+TRANSLATIONS_RU[node_ssl_cert_invalid]="✗ Неверный формат SECRET_KEY Попробуйте снова."
+TRANSLATIONS_RU[node_ssl_cert_expected]="Ожидаемый формат: ...eyJub2RlQ2VydFBldW0iOiAi..."
 TRANSLATIONS_RU[node_port_info]="• Порт ноды:"
 TRANSLATIONS_RU[node_directory_info]="• Директория ноды:"
 
@@ -907,7 +907,7 @@ TRANSLATIONS_RU[operation_completed]="Операция завершена."
 TRANSLATIONS_RU[node_enter_selfsteal_domain]="Введите домен Selfsteal, например domain.example.com"
 TRANSLATIONS_RU[node_enter_panel_ip]="Введите IP-адрес сервера панели (для настройки брандмауэра)"
 TRANSLATIONS_RU[node_allow_connections]="Разрешение соединений с сервера панели на порт ноды 2222..."
-TRANSLATIONS_RU[node_enter_ssl_cert_prompt]="Введите сертификат сервера в формате SSL_CERT=\"...\" (вставьте содержимое и нажмите Enter дважды):"
+TRANSLATIONS_RU[node_enter_ssl_cert_prompt]="Введите SECRET_KEY сервера (вставьте содержимое и нажмите Enter дважды):"
 TRANSLATIONS_RU[node_press_enter_return]="Нажмите Enter для возврата в главное меню..."
 
 TRANSLATIONS_RU[vless_enter_node_host]="Введите IP-адрес или домен сервера ноды (если отличается от домена Selfsteal)"
@@ -2960,12 +2960,6 @@ validate_ssl_certificate() {
     if [ -z "$certificate" ]; then
         return 1
     fi
-
-    if [[ ! "$certificate" =~ ^SSL_CERT= ]]; then
-        return 1
-    fi
-
-    local cert_value="${certificate#SSL_CERT=}"
 
     cert_value="${cert_value#\"}"
     cert_value="${cert_value%\"}"

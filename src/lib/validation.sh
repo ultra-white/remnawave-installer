@@ -125,14 +125,6 @@ validate_ssl_certificate() {
         return 1
     fi
 
-    # Check if certificate starts with SSL_CERT=
-    if [[ ! "$certificate" =~ ^SSL_CERT= ]]; then
-        return 1
-    fi
-
-    # Extract the value part (everything after SSL_CERT=)
-    local cert_value="${certificate#SSL_CERT=}"
-
     # Remove surrounding quotes if present
     cert_value="${cert_value#\"}"
     cert_value="${cert_value%\"}"
